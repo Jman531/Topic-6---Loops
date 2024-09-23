@@ -47,7 +47,13 @@
                 }
                 else if (programChoice == "3" || programChoice.ToLower() == "doubles roller")
                 {
+                    Console.Clear();
 
+                    Console.WriteLine("Loading program...");
+
+                    Thread.Sleep(500);
+
+                    Console.Clear();
                 }
                 else if (programChoice == "4" || programChoice.ToLower() == "quit")
                 {
@@ -62,6 +68,8 @@
                     Thread.Sleep(1000);
 
                     Console.Clear();
+
+                    DoublesRoller();
                 }
             }
         }
@@ -177,74 +185,229 @@
                 userChoice = Console.ReadLine();
 
                 Console.WriteLine();
-
-                if (userChoice == "1" || userChoice.ToLower() == "deposit")
+                if (accountBalance < 0.75)
                 {
-                    accountBalance -= 0.75;
-                    Console.WriteLine("How much money do you want to deposit:");
-                    while (!Double.TryParse(Console.ReadLine(), out depositAmount))
-                        Console.WriteLine("Invalid input, try again");
+                    Console.WriteLine("You don't have enough money in your account to do any of these actions!");
 
-                    Console.WriteLine();
-
-                    if (depositAmount <= 0)
+                    if (cash > 0.75)
                     {
-                        Console.WriteLine("Transaction failed, you can't deposit a zero or negative amount...");
+                        Console.WriteLine();
+
+                        Console.WriteLine("You do have enough cash though... So we'll just take away from that instead!");
+
+                        cash -= 0.75;
+                        accountBalance += 0.75;
+                    }
+                }
+                else
+                {
+                    if (userChoice == "1" || userChoice.ToLower() == "deposit")
+                    {
+                        accountBalance -= 0.75;
+                        Console.WriteLine("How much money do you want to deposit:");
+                        while (!Double.TryParse(Console.ReadLine(), out depositAmount))
+                            Console.WriteLine("Invalid input, try again");
 
                         Console.WriteLine();
 
-                        Console.WriteLine("You will still be charged a fee, but because we're nice we'll also display your account balance too!");
+                        if (depositAmount <= 0)
+                        {
+                            Console.WriteLine("Transaction failed, you can't deposit a zero or negative amount...");
+
+                            Console.WriteLine();
+
+                            Console.WriteLine("You wont be charged and we'll show your account balance update!");
+                            accountBalance += 0.75;
+
+                            Console.WriteLine();
+
+                            Console.WriteLine("You currently have a balance of " + accountBalance.ToString("C") + " Blorbian Dollars in your BoB account!");
+                            Console.Write("Press ENTER to continue...");
+                            Console.ReadLine();
+                        }
+                        else if (depositAmount > cash)
+                        {
+                            Console.WriteLine("Transaction failed, you can't deposit more than the amount of cash on you...");
+
+                            Console.WriteLine();
+
+                            Console.WriteLine("You wont be charged and we'll show your account balance update!");
+                            accountBalance += 0.75;
+
+                            Console.WriteLine();
+
+                            Console.WriteLine("You currently have " + accountBalance.ToString("C") + " in your BoB account!");
+                            Console.Write("Press ENTER to continue...");
+                            Console.ReadLine();
+                        }
+                        else
+                        {
+                            Console.WriteLine("Starting deposit...");
+
+                            Console.WriteLine();
+
+                            Thread.Sleep(500);
+
+                            accountBalance += depositAmount;
+                            cash -= depositAmount;
+
+                            Console.WriteLine("Deposit completed!");
+
+                            Console.WriteLine();
+
+                            Console.WriteLine("You currently have a balance of " + accountBalance.ToString("C") + " Blorbian Dollars in your BoB account!");
+                            Console.Write("Press ENTER to continue...");
+                            Console.ReadLine();
+                        }
+                    }
+                    else if (userChoice == "2" || userChoice.ToLower() == "withdrawl")
+                    {
+                        accountBalance -= 0.75;
+                        Console.WriteLine("How much do you want to withdrawl:");
+                        while (!Double.TryParse(Console.ReadLine(), out withdrawlAmount))
+                            Console.WriteLine("Invalid input, try again...");
 
                         Console.WriteLine();
 
+                        if (withdrawlAmount <= 0)
+                        {
+                            Console.WriteLine("Transaction failed, you can't withdrawl a zero or negative amount...");
+
+                            Console.WriteLine();
+
+                            Console.WriteLine("You wont be charged and we'll show your account balance update!");
+                            accountBalance += 0.75;
+
+                            Console.WriteLine();
+
+                            Console.WriteLine("You currently have a balance of " + accountBalance.ToString("C") + " Blorbian Dollars in your BoB account!");
+                            Console.Write("Press ENTER to continue...");
+                            Console.ReadLine();
+                        }
+                        else if (withdrawlAmount > accountBalance)
+                        {
+                            Console.WriteLine("Transaction failed, you can't withdrawl more money than you have in your account...");
+
+                            Console.WriteLine();
+
+                            Console.WriteLine("You wont be charged and we'll show your account balance update!");
+                            accountBalance += 0.75;
+
+                            Console.WriteLine();
+
+                            Console.WriteLine("You currently have a balance of " + accountBalance.ToString("C") + " Blorbian Dollars in your BoB account!");
+                            Console.Write("Press ENTER to continue...");
+                            Console.ReadLine();
+                        }
+                        else
+                        {
+                            Console.WriteLine("Starting withdrawl...");
+
+                            Console.WriteLine();
+
+                            Thread.Sleep(500);
+
+                            accountBalance -= withdrawlAmount;
+                            cash += withdrawlAmount;
+
+                            Console.WriteLine("Withdrawl completed!");
+
+                            Console.WriteLine();
+
+                            Console.WriteLine("You currently have a balance of " + accountBalance.ToString("C") + " Blorbian Dollars in your BoB account!");
+                            Console.Write("Press ENTER to continue...");
+                            Console.ReadLine();
+                        }
+                    }
+                    else if (userChoice == "3" || userChoice.ToLower() == "bill payment")
+                    {
+                        accountBalance -= 0.75;
+                        Console.WriteLine("The total cost of your bills is " + bills.ToString("C") + "... How much of it do you want to pay off?");
+                        while (!Double.TryParse(Console.ReadLine(), out billPayAmount))
+                            Console.WriteLine("Invalid input, try again...");
+
+                        Console.WriteLine();
+
+                        if (billPayAmount <= 0)
+                        {
+                            Console.WriteLine("Transaction failed, you can't pay a zero or negative amount...");
+
+                            Console.WriteLine();
+
+                            Console.WriteLine("You wont be charged and we'll show your account balance update!");
+                            accountBalance += 0.75;
+
+                            Console.WriteLine();
+
+                            Console.WriteLine("You currently have a balance of " + accountBalance.ToString("C") + " Blorbian Dollars in your BoB account!");
+                            Console.Write("Press ENTER to continue...");
+                            Console.ReadLine();
+                        }
+                        else if (billPayAmount > bills)
+                        {
+                            Console.WriteLine("Transaction failed, you can't pay more than the cost your bills");
+
+                            Console.WriteLine();
+
+                            Console.WriteLine("You wont be charged and we'll show your account balance update!");
+                            accountBalance += 0.75;
+
+                            Console.WriteLine();
+
+                            Console.WriteLine("You currently have a balance of " + accountBalance.ToString("C") + " Blorbian Dollars in your BoB account!");
+                            Console.Write("Press ENTER to continue...");
+                            Console.ReadLine();
+                        }
+                        else if (billPayAmount > accountBalance)
+                        {
+                            Console.WriteLine("Transaction failed, you can't pay more money than you have in your account...");
+
+                            Console.WriteLine();
+
+                            Console.WriteLine("You wont be charged and we'll show your account balance update!");
+                            accountBalance += 0.75;
+
+                            Console.WriteLine();
+
+                            Console.WriteLine("You currently have a balance of " + accountBalance.ToString("C") + " Blorbian Dollars in your BoB account!");
+                            Console.Write("Press ENTER to continue...");
+                            Console.ReadLine();
+                        }
+                        else
+                        {
+                            Console.WriteLine("Starting bill payment...");
+
+                            Console.WriteLine();
+
+                            Thread.Sleep(500);
+
+                            accountBalance -= billPayAmount;
+                            bills -= billPayAmount;
+
+                            Console.WriteLine("Bill payment completed!");
+
+                            Console.WriteLine();
+
+                            Console.WriteLine("You currently have a balance of " + accountBalance.ToString("C") + " Blorbian Dollars in your BoB account!");
+                            Console.Write("Press ENTER to continue...");
+                            Console.ReadLine();
+                        }
+                    }
+                    else if (userChoice == "4" || userChoice.ToLower() == "account balance update")
+                    {
+                        accountBalance -= 0.75;
                         Console.WriteLine("You currently have a balance of " + accountBalance.ToString("C") + " Blorbian Dollars in your BoB account!");
                         Console.Write("Press ENTER to continue...");
                         Console.ReadLine();
                     }
-                    else if (depositAmount > cash)
+                    else if (userChoice == "5" || userChoice.ToLower() == "quit")
                     {
-                        Console.WriteLine("Transaction failed, you can't deposit more than the amount of cash on you...");
-
-                        Console.WriteLine();
-
-                        Console.WriteLine("You will still be charged a fee, but because we're nice we'll also display your account balance too!");
-
-                        Console.WriteLine();
-
-                        Console.WriteLine("You currently have " + accountBalance.ToString("C") + " in your BoB account!");
-                        Console.Write("Press ENTER to continue...");
-                        Console.ReadLine();
+                        Console.WriteLine("Okay, quitting the program!");
+                        done = true;
                     }
                     else
                     {
-                        Console.WriteLine("Starting deposit...");
-
-                        Console.WriteLine();
-
-                        Thread.Sleep(500);
-
-                        accountBalance += depositAmount;
-                        cash -= depositAmount;
-
-                        Console.WriteLine("Deposit completed!");
-                    }
-                }
-                else if (userChoice == "2" || userChoice.ToLower() == "withdrawl")
-                {
-                    accountBalance -= 0.75;
-                    Console.WriteLine("How much do you want to withdrawl:");
-                    while (!Double.TryParse(Console.ReadLine(), out withdrawlAmount))
-                        Console.WriteLine("Invalid input, try again...");
-
-                    Console.WriteLine();
-
-                    if (withdrawlAmount <= 0)
-                    {
-                        Console.WriteLine("Transaction failed, you can't withdrawl a zero or negative amount...");
-
-                        Console.WriteLine();
-
-                        Console.WriteLine("You will still be charged a fee, but because we're nice we'll also display your account balance too!");
+                        Console.WriteLine("That is not one of the options... We'll just give you the accound balance update instead!");
 
                         Console.WriteLine();
 
@@ -252,109 +415,15 @@
                         Console.Write("Press ENTER to continue...");
                         Console.ReadLine();
                     }
-                    else if (withdrawlAmount > accountBalance)
-                    {
-                        Console.WriteLine("Transaction failed, you can't withdrawl more money than you have in your account...");
-
-                        Console.WriteLine();
-
-                        Console.WriteLine("You will still be charged a fee, but because we're nice we'll also display your account balance too!");
-
-                        Console.WriteLine();
-
-                        Console.WriteLine("You currently have a balance of " + accountBalance.ToString("C") + " Blorbian Dollars in your BoB account!");
-                        Console.Write("Press ENTER to continue...");
-                        Console.ReadLine();
-                    }
-                    else
-                    {
-                        Console.WriteLine("Starting deposit...");
-
-                        Console.WriteLine();
-
-                        Thread.Sleep(500);
-
-                        accountBalance -= withdrawlAmount;
-                        cash += withdrawlAmount;
-
-                        Console.WriteLine("Deposit completed!");
-                    }
-                }
-                else if (userChoice == "3" || userChoice.ToLower() == "bill payment")
-                {
-                    accountBalance -= 0.75;
-                    Console.WriteLine("The total cost of your bills is " + bills.ToString("C") + "... How much of it do you want to pay off?");
-                    while (!Double.TryParse(Console.ReadLine(), out billPayAmount))
-                        Console.WriteLine("Invalid input, try again...");
-
-                    Console.WriteLine();
-
-                    if (billPayAmount <= 0)
-                    {
-                        Console.WriteLine("Transaction failed, you can't pay a zero or negative amount...");
-
-                        Console.WriteLine();
-
-                        Console.WriteLine("You will still be charged a fee, but because we're nice we'll also display your account balance too!");
-
-                        Console.WriteLine();
-
-                        Console.WriteLine("You currently have a balance of " + accountBalance.ToString("C") + " Blorbian Dollars in your BoB account!");
-                        Console.Write("Press ENTER to continue...");
-                        Console.ReadLine();
-                    }
-                    else if (billPayAmount > bills)
-                    {
-                        Console.WriteLine("Transaction failed, you can't pay more than the cost your bills");
-
-                        Console.WriteLine();
-
-                        Console.WriteLine("You will still be charged a fee, but because we're nice we'll also display your account balance too!");
-
-                        Console.WriteLine();
-
-                        Console.WriteLine("You currently have a balance of " + accountBalance.ToString("C") + " Blorbian Dollars in your BoB account!");
-                        Console.Write("Press ENTER to continue...");
-                        Console.ReadLine();
-                    }
-                    else if (billPayAmount > accountBalance)
-                    {
-                        Console.WriteLine("Transaction failed, you can't pay more money than you have in your account...");
-
-                        Console.WriteLine();
-
-                        Console.WriteLine("You will still be charged a fee, but because we're nice we'll also display your account balance too!");
-
-                        Console.WriteLine();
-
-                        Console.WriteLine("You currently have a balance of " + accountBalance.ToString("C") + " Blorbian Dollars in your BoB account!");
-                        Console.Write("Press ENTER to continue...");
-                        Console.ReadLine();
-                    }
-                    else
-                    {
-                        Console.WriteLine("Starting bill payment...");
-
-                        Console.WriteLine();
-
-                        Thread.Sleep(500);
-
-                        accountBalance -= billPayAmount;
-                        bills -= billPayAmount;
-
-                        Console.WriteLine("Bill payment completed!");
-                    }
-                }
-                else if (userChoice == "4" || userChoice.ToLower() == "account balance update")
-                {
-                    accountBalance -= 0.75;
-                    Console.WriteLine("You currently have a balance of " + accountBalance.ToString("C") + " Blorbian Dollars in your BoB account!");
-                    Console.Write("Press ENTER to continue...");
-                    Console.ReadLine();
                 }
 
                 Console.WriteLine();
             }
+        }
+
+        static void DoublesRoller()
+        {
+
         }
     }
 }
