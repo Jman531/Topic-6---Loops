@@ -5,7 +5,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Topic_6___Loops
+namespace Topic_5._5___More_Classes
 {
     public class Die
     {

@@ -1,4 +1,6 @@
-﻿namespace Topic_6___Loops
+﻿using Topic_5._5___More_Classes;
+
+namespace Topic_6___Loops
 {
     internal class Program
     {
@@ -427,13 +429,55 @@
             Die die1 = new Die();
             Die die2 = new Die();
 
+            int rollAmount = 0;
+
             Console.WriteLine("It's time to start rolling dice until you get doubles! Press ENTER to begin.");
+            Console.ReadLine();
 
             Console.WriteLine();
 
-            Console.WriteLine($"Dice 1 rolled a {die1} and dice 2 rolled a {die2}");
+            rollAmount += 1;
 
-            DrawRoll();
+            Console.WriteLine($"Dice 1 rolled a {die1}");
+
+            die1.DrawRoll();
+
+            Console.WriteLine();
+
+            Console.WriteLine($"Dice 2 rolled a {die2}");
+
+            die2.DrawRoll();
+
+            Console.WriteLine();
+
+            while (die1.ToString() != die2.ToString())
+            {
+                Console.WriteLine("Not a double! Let's roll the dice again! Press ENTER to roll the dice");
+                Console.ReadLine();
+
+                die1.RollDie();
+                die2.RollDie();
+
+                Console.WriteLine();
+
+                rollAmount += 1;
+
+                Console.WriteLine($"Dice 1 rolled a {die1}");
+
+                die1.DrawRoll();
+
+                Console.WriteLine();
+
+                Console.WriteLine($"Dice 2 rolled a {die2}");
+
+                die2.DrawRoll();
+
+                Console.WriteLine();
+            }
+            Console.WriteLine($"You managed to roll a double in only {rollAmount} rolls! Press ENTER to exit");
+            Console.ReadLine();
+
+            Console.Clear();
         }
     }
 }
