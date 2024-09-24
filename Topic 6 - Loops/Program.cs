@@ -17,6 +17,7 @@
                 Console.WriteLine("2. Simple Banking Machine");
                 Console.WriteLine("3. Doubles Roller");
                 Console.WriteLine("4. Quit");
+
                 programChoice = Console.ReadLine();
 
                 Console.WriteLine();
@@ -54,6 +55,8 @@
                     Thread.Sleep(500);
 
                     Console.Clear();
+
+                    DoublesRoller();
                 }
                 else if (programChoice == "4" || programChoice.ToLower() == "quit")
                 {
@@ -68,8 +71,6 @@
                     Thread.Sleep(1000);
 
                     Console.Clear();
-
-                    DoublesRoller();
                 }
             }
         }
@@ -423,7 +424,16 @@
 
         static void DoublesRoller()
         {
+            Die die1 = new Die();
+            Die die2 = new Die();
 
+            Console.WriteLine("It's time to start rolling dice until you get doubles! Press ENTER to begin.");
+
+            Console.WriteLine();
+
+            Console.WriteLine($"Dice 1 rolled a {die1} and dice 2 rolled a {die2}");
+
+            DrawRoll();
         }
     }
 }
